@@ -21,7 +21,8 @@ router.post("/todo", (req, res, next) => {
     text: req.body.text,
   };
   todos.push(newTodo);
-  res.status(201).json({ message: "Added Todo", todo: newTodo, todos: todos });
+  // res.status(201).json({ message: "Added Todo", todo: newTodo, todos: todos });
+  res.status(201).json({ message: "Added Todo", todos: todos }); // show us all created items stored in the array.
 });
 
 router.put("/todo/:todoId", (req, res, next) => {
@@ -33,7 +34,11 @@ router.put("/todo/:todoId", (req, res, next) => {
       id: todos[todoIndex].id, // we keep the old Id and don't edit it!
       text: req.body.text,
     };
-    return res.status(200).json({ message: "Updated todo", todos: todos });
+    // return res.status(200).json({ message: "Updated todo", todos: todos }); // show us all items
+    // including the updated one!
+    return res
+      .status(200)
+      .json({ message: "Updated todo", todos: todos[todoIndex] }); // show us only updated item
   }
   res.status(404).json({ message: "Could not find todo for this id." });
 });
